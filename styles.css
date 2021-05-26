@@ -31,4 +31,38 @@ body {
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 3%;
+}
+
+
+.card {
+    background-color: rgba(255, 255, 255, .8);
+    text-align: center;
+    padding: 1em 2em;
+    border-radius: 10px;
+}
+
+.card__img {
+    width: 90%;
+    margin: 0 auto 1em auto;
+}
+
+.card > *:not(:first-child) {
+    font-size: 20px;
+    margin-top: 1em;
+}
+
+.card__btn {
+    outline: none;
+    border: none;
+    background-color: dodgerblue;
+    color: #fff;
+    padding: .5em 1.5em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 250ms ease-in;
+}
+
+.card__btn:hover {
+    opacity: 0.8;
 }
