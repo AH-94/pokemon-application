@@ -3,7 +3,8 @@ let cards = [];
 
 const cardsContainer = document.querySelector('.cards');
 const searchInput = document.querySelector('#searchField');
-const filterBtn = document.querySelector('.card__btn--favourites');
+const filterBtn = document.querySelector('#favouriteBtn');
+const allBtn = document.querySelector('#allBtn');
 
 
 function getAllPokemon() {
@@ -53,7 +54,7 @@ function injectHTML(list) {
             <span class="card__number"><strong>id:</strong> ${item.id}</span>
             <h2 class="card__name"><strong>Name:</strong> ${item.name}</h2>
             <p class="card__abilities"><strong>Abilities</strong> ${item.abilities.join(', ')}</p>
-            <button class="card__btn">View Pokemon</button>
+            <button class="card__btn card__btn--modal">View Pokemon</button>
             <button data-id="${item.id}" class="card__btn card__btn--like ${loadClass(item.liked)}">Like Pokemon</button>
         </div>
         `
@@ -90,7 +91,11 @@ function setAsLiked(e) {
         const selectedCard = cards.find(card => card.id == e.target.dataset.id);
         selectedCard.liked = true;
         saveCards();
-        injectHTML(cards);
+        injectHTML(JSON.parse(localStorage.getItem('cards')));
+    }
+
+    if (e.target.classList.contains('card__btn--modal')) {
+        console.log('open modal');
     }
     
 }
@@ -100,12 +105,18 @@ function filterLikedCards() {
     injectHTML(likedCards);
 }
 
+function showAllPokemon() {
+    injectHTML(cards);
+}
+
 
 searchInput.addEventListener('keyup', filterPokemon);
 
 cardsContainer.addEventListener('click', setAsLiked);
 
 filterBtn.addEventListener('click', filterLikedCards);
+
+allBtn.addEventListener('click', showAllPokemon);
 
 getAllPokemon();
 
