@@ -3,6 +3,7 @@ let cards = [];
 
 const cardsContainer = document.querySelector('.cards');
 const searchInput = document.querySelector('#searchField');
+const filterBtn = document.querySelector('.card__btn--favourites');
 
 
 function getAllPokemon() {
@@ -36,6 +37,11 @@ function generateCard(data) {
 }
 
 
+function saveCards() {
+    localStorage.setItem('cards', JSON.stringify(cards));
+}
+
+
 function injectHTML(list) {
 
     clearContainer(cardsContainer);
@@ -48,11 +54,18 @@ function injectHTML(list) {
             <h2 class="card__name"><strong>Name:</strong> ${item.name}</h2>
             <p class="card__abilities"><strong>Abilities</strong> ${item.abilities.join(', ')}</p>
             <button class="card__btn">View Pokemon</button>
+            <button data-id="${item.id}" class="card__btn card__btn--like ${loadClass(item.liked)}">Like Pokemon</button>
         </div>
         `
     }).join('');
 
     cardsContainer.innerHTML = html;
+}
+
+function loadClass(condition) {
+    if (condition) {
+        return 'liked';
+    }
 }
 
 function clearContainer(el) {
@@ -64,15 +77,35 @@ function clearContainer(el) {
 function filterPokemon(e) {
     const inputValue = e.currentTarget.value.toUpperCase();
     if (inputValue == null || inputValue == '') {
-        getAllPokemon();
-        return;
+        injectHTML(cards);
     };
     const matchingCards = cards.filter(card => card.name.toUpperCase().indexOf(inputValue) > -1);
     injectHTML(matchingCards);
 }
 
 
+function setAsLiked(e) {
+
+    if (e.target.classList.contains('card__btn--like')) {
+        const selectedCard = cards.find(card => card.id == e.target.dataset.id);
+        selectedCard.liked = true;
+        saveCards();
+        injectHTML(cards);
+    }
+    
+}
+
+function filterLikedCards() {
+    const likedCards = cards.filter(card => card.liked == true);
+    injectHTML(likedCards);
+}
+
+
 searchInput.addEventListener('keyup', filterPokemon);
+
+cardsContainer.addEventListener('click', setAsLiked);
+
+filterBtn.addEventListener('click', filterLikedCards);
 
 getAllPokemon();
 

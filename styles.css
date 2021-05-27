@@ -94,7 +94,16 @@ body {
     transition: opacity 250ms ease-in;
 }
 
-.card__btn + .card__btn {
+.card__btn--like {
+    margin-top: 1em;
+    background-color: #000;
+}
+
+.card__btn--like.liked {
+    background-color: #DC143C;
+}
+
+.card__btn--favourites {
     margin-left: 1em;
 }
 
