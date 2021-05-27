@@ -37,7 +37,7 @@ function generateCard(data) {
         abilities.push(data.abilities[i].ability.name);
     }
 
-    return {id: data.id, name: data.name, abilities: [...abilities], liked: false};
+    return {id: data.id, name: data.name, abilities: [...abilities], base_experience: data.base_experience, height: data.height, weight: data.weight, liked: false};
 }
 
 
@@ -52,7 +52,7 @@ function injectHTML(list) {
 
     const html = list.map(item => {
         return `
-        <div class="card card--span-3">
+        <div class="card">
             <img src="https://pokeres.bastionbot.org/images/pokemon/${item.id}.png" class="card__img">
             <span class="card__number"><strong>id:</strong> ${item.id}</span>
             <h2 class="card__name"><strong>Name:</strong> ${item.name}</h2>
@@ -101,6 +101,14 @@ function cardBtnHandler(e) {
         const cardForModal = cards.find(card => card.id == e.target.dataset.id);
         const modalImage = modalInner.querySelector('img');
         modalImage.src = `https://pokeres.bastionbot.org/images/pokemon/${cardForModal.id}.png`;
+        modalImage.alt = `image of ${cardForModal.name}`;
+        const modalTitle = modalInner.querySelector('.modal-inner__title');
+        modalTitle.textContent = cardForModal.name;
+        const modalListItems = modalInner.querySelectorAll('.modal-inner__list li');
+        modalListItems[0].innerHTML = `<strong>Abilities:</strong> ${cardForModal.abilities.join(', ')}`;
+        modalListItems[1].innerHTML = `<strong>Base experience:</strong> ${cardForModal.base_experience}`;
+        modalListItems[2].innerHTML = `<strong>Height:</strong> ${cardForModal.height}`;
+        modalListItems[3].innerHTML = `<strong>Weight:</strong> ${cardForModal.weight}`;
         modal.classList.add('visible');
     }
     
