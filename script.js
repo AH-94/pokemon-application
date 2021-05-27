@@ -5,6 +5,9 @@ const cardsContainer = document.querySelector('.cards');
 const searchInput = document.querySelector('#searchField');
 const filterBtn = document.querySelector('#favouriteBtn');
 const allBtn = document.querySelector('#allBtn');
+const modal = document.querySelector('.modal');
+const modalInner = modal.querySelector('.modal-inner');
+const closeBtn = modal.querySelector('.modal__close');
 
 
 function getAllPokemon() {
@@ -54,7 +57,7 @@ function injectHTML(list) {
             <span class="card__number"><strong>id:</strong> ${item.id}</span>
             <h2 class="card__name"><strong>Name:</strong> ${item.name}</h2>
             <p class="card__abilities"><strong>Abilities</strong> ${item.abilities.join(', ')}</p>
-            <button class="card__btn card__btn--modal">View Pokemon</button>
+            <button data-id="${item.id}" class="card__btn card__btn--modal">View Pokemon</button>
             <button data-id="${item.id}" class="card__btn card__btn--like ${loadClass(item.liked)}">Like Pokemon</button>
         </div>
         `
@@ -85,7 +88,7 @@ function filterPokemon(e) {
 }
 
 
-function setAsLiked(e) {
+function cardBtnHandler(e) {
 
     if (e.target.classList.contains('card__btn--like')) {
         const selectedCard = cards.find(card => card.id == e.target.dataset.id);
@@ -95,9 +98,22 @@ function setAsLiked(e) {
     }
 
     if (e.target.classList.contains('card__btn--modal')) {
-        console.log('open modal');
+        const cardForModal = cards.find(card => card.id == e.target.dataset.id);
+        const modalImage = modalInner.querySelector('img');
+        modalImage.src = `https://pokeres.bastionbot.org/images/pokemon/${cardForModal.id}.png`;
+        modal.classList.add('visible');
     }
     
+}
+
+function closeModal() {
+    modal.classList.remove('visible');
+}
+
+function keyCloseHandler(e) {
+    if (e.keyCode == 27) {
+        closeModal();
+    }
 }
 
 function filterLikedCards() {
@@ -112,11 +128,15 @@ function showAllPokemon() {
 
 searchInput.addEventListener('keyup', filterPokemon);
 
-cardsContainer.addEventListener('click', setAsLiked);
+cardsContainer.addEventListener('click', cardBtnHandler);
 
 filterBtn.addEventListener('click', filterLikedCards);
 
 allBtn.addEventListener('click', showAllPokemon);
+
+closeBtn.addEventListener('click', closeModal);
+
+document.addEventListener('keyup', keyCloseHandler);
 
 getAllPokemon();
 

@@ -110,3 +110,84 @@ body {
 .card__btn:hover {
     opacity: 0.8;
 }
+
+
+/* modal */
+
+.modal {
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .3s ease-out;
+}
+
+.modal.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-inner {
+    background-color: #fff;
+    border-radius: 10px;
+    max-width: 800px;
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-200%);
+    transition: transform .6s ease-out;
+}
+
+.modal.visible .modal-inner {
+    transform: translateY(0);
+}
+
+
+.modal-inner img {
+    width: 300px;
+} 
+
+.stats {
+    padding-left: 2em;
+}
+
+.modal-inner__title {
+    font-size: 30px;
+    margin-bottom: .5em;
+}
+
+.modal-inner__list {
+    list-style: none;
+}
+
+.modal-inner__list li {
+    font-size: 20px;
+}
+
+.modal-inner__list li:not(:first-child) {
+    margin-top: .5em;
+}
+
+.modal__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2rem;
+    color: #fff;
+    transform: scaleX(1.2);
+    transform-origin: 100% 0;
+    cursor: pointer;
+}
+
+.modal__close:hover {
+    opacity: 0.8;
+}
