@@ -1,4 +1,5 @@
 *, *::after, *::before {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-family: sans-serif;
     margin: 0;
@@ -18,8 +19,13 @@ img {
 }
 
 body {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#9D50BB), to(#6E48AA));
+    background-image: -o-linear-gradient(#9D50BB, #6E48AA);
     background-image: linear-gradient(#9D50BB, #6E48AA);
     min-height: 100vh;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 }
 
@@ -40,9 +46,16 @@ body {
 
 .header-nav {
     margin-top: 2em;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -63,6 +76,8 @@ body {
 
 @media (max-width: 600px) {
     .header-nav {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
     }
 }
@@ -71,7 +86,9 @@ body {
 /* cards */
 
 .cards {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr 20px 1fr 20px 1fr 20px 1fr 20px 1fr 20px 1fr 20px 1fr 20px 1fr 20px 1fr 20px 1fr 20px 1fr 20px 1fr;
     grid-template-columns: repeat(12, 1fr);
     grid-gap: 20px;
 }
@@ -84,26 +101,37 @@ body {
     text-align: center;
     padding: 1em 2em;
     border-radius: 10px;
+    -ms-grid-column-span: 3;
     grid-column: span 3;
-    display: flex;
+    *display: -webkit-box;
+    *display: -ms-flexbox;
+    *display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
 }
 
 @media (max-width: 1200px) {
     .card {
+        -ms-grid-column-span: 4;
         grid-column: span 4;
     }
 }
 
 @media (max-width: 850px) {
     .card {
+        -ms-grid-column-span: 6;
         grid-column: span 6;
     }
 }
 
 @media (max-width: 600px) {
     .card {
+        -ms-grid-column-span: 12;
         grid-column: span 12;
     }
 }
@@ -119,7 +147,7 @@ body {
 
 .card > *:not(:first-child) {
     font-size: 20px;
-    /* margin-top: 1em; */
+    margin-top: 1em;
 }
 
 .card__btn {
@@ -131,6 +159,8 @@ body {
     padding: .5em 1.5em;
     border-radius: 10px;
     cursor: pointer;
+    -webkit-transition: opacity 250ms ease-in;
+    -o-transition: opacity 250ms ease-in;
     transition: opacity 250ms ease-in;
 }
 
@@ -163,10 +193,19 @@ body {
     right: 0;
     left: 0;
     background-color: rgba(0, 0, 0, .8);
+    padding: 0 18px;
     z-index: 5;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
-    align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+     align-items: center;
+    -webkit-transition: opacity .3s ease-out;
+    -o-transition: opacity .3s ease-out;
     transition: opacity .3s ease-out;
 }
 
@@ -180,14 +219,30 @@ body {
     border-radius: 10px;
     max-width: 800px;
     padding: 2em;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-transform: translateY(-200%);
+    -ms-transform: translateY(-200%);
     transform: translateY(-200%);
+    -webkit-transition: -webkit-transform .6s ease-out;
+    transition: -webkit-transform .6s ease-out;
+    -o-transition: transform .6s ease-out;
     transition: transform .6s ease-out;
+    transition: transform .6s ease-out, -webkit-transform .6s ease-out;
 }
 
 .modal.visible .modal-inner {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
     transform: translateY(0);
 }
 
@@ -223,7 +278,11 @@ body {
     right: 15px;
     font-size: 2rem;
     color: #fff;
+    -webkit-transform: scaleX(1.2);
+    -ms-transform: scaleX(1.2);
     transform: scaleX(1.2);
+    -webkit-transform-origin: 100% 0;
+    -ms-transform-origin: 100% 0;
     transform-origin: 100% 0;
     cursor: pointer;
 }
